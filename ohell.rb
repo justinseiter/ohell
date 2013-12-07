@@ -1,5 +1,6 @@
 hands = 2
-hand_count = 1
+hand_count = hands - (hands - 1)
+trick_value = 10
 scoreboard = Hash.new
 tricks_count = Hash.new
 
@@ -9,9 +10,11 @@ player_list = gets.chomp
 players = player_list.split(",")
 
 players.each do |player|
-  puts "#{player.capitalize!}"
+  player.capitalize!
   scoreboard[player] = 0
 end
+
+scoreboard.each { |x, y| puts "#{x}: ...............#{y}" }
 
 until hands == 0
 
@@ -30,7 +33,7 @@ until hands == 0
     puts "Did #{player} get #{tricks} tricks?"
     tricks_scored = gets.chomp.to_s
     if tricks_scored == "y"
-      tricks_won = tricks += 10
+      tricks_won = tricks += trick_value
       score = scoreboard[player]
       new_score = tricks_won + score
       scoreboard[player] = new_score
@@ -42,7 +45,7 @@ until hands == 0
     end
   end
 
-  scoreboard.each { |x, y| puts "#{x}: #{y}" }
+  scoreboard.each { |x, y| puts "#{x}: ...............#{y}" }
 
   hands -= 1
   hand_count += 1
