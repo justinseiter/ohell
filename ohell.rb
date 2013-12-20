@@ -4,6 +4,10 @@ trick_value = 10
 scoreboard = Hash.new
 tricks_count = Hash.new
 
+def formatted_name(name)
+  name.ljust(29, '.')
+end
+
 puts "Enter comma separated list of players:"
 player_list = gets.chomp
 
@@ -14,23 +18,30 @@ players.each do |player|
   scoreboard[player] = 0
 end
 
-scoreboard.each { |x, y| puts "#{x}: ...............#{y}" }
+30.times { print "*" }
+puts ''
+puts 'SCOREBOARD'
+scoreboard.each { |x, y| puts "#{formatted_name(x)}#{y}" }
+30.times { print "*" }
+puts ''
+
 
 until hands == 0
 
-  puts "Hand #{hand_count}, deal #{hands} cards."
+  puts "Hand #{hand_count}, deal #{hands} cards.".rjust(60, '.')
+  puts ''
 
   players.each do |player|
-    puts "How many tricks for #{player}"
+    print "How many tricks for #{player}: "
     tricks = gets.chomp.to_i
     tricks_count[player] = tricks
   end
 
-  tricks_count.each { |x, y| puts "#{x} called: #{y} Tricks" }
+  tricks_count.each { |x, y| puts "#{x} called: #{y} Tricks".rjust(60, '.') }
 
 
   tricks_count.each do |player, tricks|
-    puts "Did #{player} get #{tricks} tricks?"
+    print "Did #{player} get #{tricks} tricks? "
     tricks_scored = gets.chomp.to_s
     if tricks_scored == "y"
       tricks_won = tricks += trick_value
@@ -45,7 +56,13 @@ until hands == 0
     end
   end
 
-  scoreboard.each { |x, y| puts "#{x}: ...............#{y}" }
+  30.times { print "*" }
+  puts ''
+  puts 'SCOREBOARD'
+  scoreboard.each { |x, y| puts "#{formatted_name(x)}#{y}" }
+  30.times { print "*" }
+  puts ''
+
 
   hands -= 1
   hand_count += 1
