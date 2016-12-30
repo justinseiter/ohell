@@ -1,4 +1,4 @@
-hands = 2
+hands = 10
 hand_count = hands - (hands - 1)
 trick_value = 10
 scoreboard = Hash.new
